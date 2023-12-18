@@ -73,7 +73,9 @@ function checkAnswer() {
     }
   });
 
-  correctAnswerRevealed = true;
+  if (selectedAnswerIndex === correctAnswerIndex) {
+    correctAnswerRevealed = true;
+  }
 }
 
 function nextQuestion() {

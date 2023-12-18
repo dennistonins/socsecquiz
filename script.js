@@ -17,11 +17,27 @@ async function loadQuestionsFromCSV() {
     });
 }
 
-// Load questions from CSV
-loadQuestionsFromCSV().then(loadedQuestions => {
-    questions = loadedQuestions;
-    loadQuestion();
-});
+async function loadQuestionsFromCSV() {
+    const response = await fetch('questions.csv');
+    const csvText = await response.text();
+    return csvText.split('\n').slice(1).map(line => {
+        const fields = line.split(',').map(field => field.trim());
+
+        // Check if all expected fields are present
+        if (fields.length !== 7) {
+            console.error('Invalid line in CSV:', line);
+            return null; // Skip this line
+        }
+
+        const [module, question, a1, a2, a3, a4, correctAnswerIndex] = fields;
+        return {
+            module,
+            question,
+            answers: [a1, a2, a3, a4],
+            correctAnswer: parseInt(correctAnswerIndex, 10)
+        };
+    }).filter(question => question !== null); // Remove invalid entries
+}
 
 function loadHomeScreen() {
     document.getElementById('homeScreen').style.display = 'block';

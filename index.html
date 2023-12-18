@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flash Card Study Aid</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Flash Cards</title>
 </head>
 <body>
-  <div id="flashcard">
+  <div id="question-container">
     <div id="question"></div>
-    <div id="answers"></div>
-    <button id="answerBtn" onclick="checkAnswer()">Answer</button>
-    <button id="nextBtn" onclick="nextQuestion()">Next</button>
+    <div id="answers" onclick="selectAnswer(event)"></div>
   </div>
+  <button onclick="checkAnswer()">Answer</button>
+  <button onclick="nextQuestion()">Next</button>
   <script src="script.js"></script>
 </body>
 </html>

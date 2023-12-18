@@ -84,8 +84,8 @@ function checkAnswer() {
   const answers = document.querySelectorAll('.answer');
   answers.forEach((answer, index) => {
     answer.classList.remove('correct', 'wrong', 'selected'); // Clear previous answer highlighting
-    if (index === correctAnswerIndex && selectedAnswerIndex === correctAnswerIndex) {
-      answer.classList.add('correct', 'selected'); // Green for correct answer if selected
+    if (index === correctAnswerIndex) {
+      answer.classList.add('correct'); // Highlight the correct answer in green
     } else if (index === selectedAnswerIndex && index !== correctAnswerIndex) {
       answer.classList.add('wrong'); // Red for wrong answer
     }

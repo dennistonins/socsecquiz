@@ -1,7 +1,7 @@
-const csvFilePath = '/questions.csv'; // Adjust the file path accordingly
+const csvFilePath = 'questions.csv'; // Adjust the file path accordingly
 
 let questions = [];
-let currentQuestionIndex = Math.floor(Math.random() * questions.length);
+let currentQuestionIndex = null;
 let selectedAnswerIndex = null;
 let correctAnswerRevealed = false;
 
@@ -17,6 +17,7 @@ function loadQuestionsFromCSV() {
     .then(response => response.text())
     .then(data => {
       questions = parseCSV(data);
+      currentQuestionIndex = Math.floor(Math.random() * questions.length);
       loadQuestion();
     })
     .catch(error => console.error('Error loading CSV:', error));
@@ -46,21 +47,14 @@ function loadQuestion() {
   document.getElementById('question').innerText = currentQuestion.question;
 
   // Copy the answers array and shuffle the order only if it's a new question
-  const shuffledAnswers = currentQuestion.shuffledAnswers || [
+  const shuffledAnswers = [
     currentQuestion.answer1,
     currentQuestion.answer2,
     currentQuestion.answer3,
     currentQuestion.answer4
   ];
 
-  if (!currentQuestion.shuffledAnswers) {
-    shuffleArray(shuffledAnswers);
-
-    // Update the correct answer index for the shuffled answers
-    currentQuestion.shuffledCorrectAnswer = shuffledAnswers.indexOf(currentQuestion['correctAnswer']);
-
-    currentQuestion.shuffledAnswers = shuffledAnswers;
-  }
+  shuffleArray(shuffledAnswers);
 
   const answersHtml = shuffledAnswers.map((answer, index) => {
     const selectedClass = index === selectedAnswerIndex ? 'selected' : '';
@@ -77,7 +71,7 @@ function selectAnswer(selectedIndex) {
 
 function checkAnswer() {
   const currentQuestion = questions[currentQuestionIndex];
-  const correctAnswerIndex = currentQuestion.shuffledCorrectAnswer;
+  const correctAnswerIndex = parseInt(currentQuestion.correctAnswer);
 
   const answers = document.querySelectorAll('.answer');
   answers.forEach((answer, index) => {
@@ -95,11 +89,6 @@ function checkAnswer() {
 function nextQuestion() {
   selectedAnswerIndex = null;
   correctAnswerRevealed = false;
-
-  // Reset the shuffledAnswers and shuffledCorrectAnswer properties for the next question
-  const currentQuestion = questions[currentQuestionIndex];
-  currentQuestion.shuffledAnswers = null;
-  currentQuestion.shuffledCorrectAnswer = null;
 
   // Randomly select the next question index
   currentQuestionIndex = Math.floor(Math.random() * questions.length);

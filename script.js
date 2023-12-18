@@ -57,6 +57,10 @@ function loadQuestion() {
   const shuffledAnswers = currentQuestion.shuffledAnswers || [...currentQuestion.answers];
   if (!currentQuestion.shuffledAnswers) {
     shuffleArray(shuffledAnswers);
+
+    // Update the correct answer index for the shuffled answers
+    currentQuestion.shuffledCorrectAnswer = shuffledAnswers.indexOf(currentQuestion.answers[currentQuestion.correctAnswer]);
+
     currentQuestion.shuffledAnswers = shuffledAnswers;
   }
 
@@ -75,7 +79,7 @@ function selectAnswer(selectedIndex) {
 
 function checkAnswer() {
   const currentQuestion = questions[currentQuestionIndex];
-  const correctAnswerIndex = currentQuestion.correctAnswer;
+  const correctAnswerIndex = currentQuestion.shuffledCorrectAnswer;
 
   const answers = document.querySelectorAll('.answer');
   answers.forEach((answer, index) => {
@@ -94,9 +98,10 @@ function nextQuestion() {
   selectedAnswerIndex = null;
   correctAnswerRevealed = false;
 
-  // Reset the shuffledAnswers property for the next question
+  // Reset the shuffledAnswers and shuffledCorrectAnswer properties for the next question
   const currentQuestion = questions[currentQuestionIndex];
   currentQuestion.shuffledAnswers = null;
+  currentQuestion.shuffledCorrectAnswer = null;
 
   // Randomly select the next question index
   currentQuestionIndex = Math.floor(Math.random() * questions.length);

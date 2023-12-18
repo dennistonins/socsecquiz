@@ -42,11 +42,22 @@ let currentQuestionIndex = Math.floor(Math.random() * questions.length);
 let selectedAnswerIndex = null;
 let correctAnswerRevealed = false;
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 function loadQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
   document.getElementById('question').innerText = currentQuestion.question;
 
-  const answersHtml = currentQuestion.answers.map((answer, index) => {
+  // Shuffle the order of the answers
+  const shuffledAnswers = [...currentQuestion.answers];
+  shuffleArray(shuffledAnswers);
+
+  const answersHtml = shuffledAnswers.map((answer, index) => {
     const selectedClass = index === selectedAnswerIndex ? 'selected' : '';
     return `<div class="answer ${selectedClass}" onclick="selectAnswer(${index})">${answer}</div>`;
   }).join('');

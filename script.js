@@ -31,12 +31,14 @@ function loadHomeScreen() {
 }
 
 function loadQuestion() {
+  console.log('Loading question for module:', selectedModule); // Add this line for debugging
+
   const filteredQuestions = selectedModule
     ? questions.filter((q) => q.module === selectedModule)
     : questions;
 
-  // ... existing loadQuestion logic ...
-}
+  console.log('Filtered questions:', filteredQuestions); // Add this line for debugging
+
 
 function selectModule(module) {
   console.log('Selected module:', module); // Add this line for debugging

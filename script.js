@@ -1,19 +1,61 @@
-function loadQuestion() {
-  const filteredQuestions = selectedModule
-    ? questions.filter((q) => q.module === selectedModule)
-    : questions;
+let questions = [];
+let currentQuestionIndex = 0;
+let selectedModule = null;
 
-  // Handle case where no questions are found for the selected module
-  if (!filteredQuestions.length) {
-    console.error('No questions found for the selected module:', selectedModule);
-    return; // Exit the function
-  }
-
-  // Reset currentQuestionIndex if it's out of bounds
-  if (currentQuestionIndex === null || currentQuestionIndex >= filteredQuestions.length) {
-    currentQuestionIndex = 0;
-  }
-
-  const currentQuestion = filteredQuestions[currentQuestionIndex];
-  // ... Rest of the loadQuestion function ...
+// Dummy CSV data loader (replace with your CSV loading logic)
+async function loadQuestionsFromCSV() {
+    // Replace this with actual CSV loading logic
+    return [
+        { module: 'module1', question: 'Question 1', answers: ['A', 'B', 'C', 'D'], correctAnswer: 0 },
+        // ... other questions ...
+    ];
 }
+
+// Load questions from CSV
+loadQuestionsFromCSV().then(loadedQuestions => {
+    questions = loadedQuestions;
+    loadQuestion();
+});
+
+function loadHomeScreen() {
+    document.getElementById('homeScreen').style.display = 'block';
+    document.getElementById('flashcard').style.display = 'none';
+}
+
+function selectModule(module) {
+    selectedModule = module;
+    currentQuestionIndex = 0;
+    loadQuestion();
+    document.getElementById('homeScreen').style.display = 'none';
+    document.getElementById('flashcard').style.display = 'block';
+}
+
+function loadQuestion() {
+    let filteredQuestions = selectedModule ? questions.filter(q => q.module === selectedModule) : questions;
+    if (currentQuestionIndex >= filteredQuestions.length) currentQuestionIndex = 0;
+    let currentQuestion = filteredQuestions[currentQuestionIndex];
+
+    document.getElementById('question').innerText = currentQuestion.question;
+    let answersHtml = currentQuestion.answers.map((answer, index) =>
+        `<button onclick="selectAnswer(${index})">${answer}</button>`
+    ).join('');
+    document.getElementById('answers').innerHTML = answersHtml;
+}
+
+function selectAnswer(index) {
+    let filteredQuestions = selectedModule ? questions.filter(q => q.module === selectedModule) : questions;
+    let currentQuestion = filteredQuestions[currentQuestionIndex];
+    alert(index === currentQuestion.correctAnswer ? "Correct!" : "Wrong!");
+}
+
+function checkAnswer() {
+    // Logic to check the answer
+}
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    loadQuestion();
+}
+
+// Initial load
+loadHomeScreen();

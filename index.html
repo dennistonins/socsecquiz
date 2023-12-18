@@ -1,29 +1,28 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flash Card Study Aid</title>
-  <link rel="stylesheet" href="/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Quiz</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="homeScreen">
-  <button onclick="selectModule(null)">All Questions</button>
-  <button onclick="selectModule('module1.1')">Module 1.1</button>
-  <button onclick="selectModule('module1.2')">Module 1.2</button>
-  <!-- Add buttons for other modules as needed -->
-</div>
-  <div id="flashcard" style="display: none;">
-    <div id="question"></div>
-    <div id="answers"></div>
-    <button id="answerBtn" onclick="checkAnswer()">Answer</button>
-    <button id="nextBtn" onclick="nextQuestion()">Next</button>
-    <button id="backBtn" onclick="loadHomeScreen()">Back to Home</button>
-  </div>
+    <div id="homeScreen">
+        <button onclick="selectModule(null)">All Modules</button>
+        <button onclick="selectModule('module1')">Module 1</button>
+        <button onclick="selectModule('module2')">Module 2</button>
+        <!-- Add more modules as needed -->
+    </div>
 
-  <script src="/csvLoader.js"></script>
-  <script src="/script.js"></script>
+    <div id="flashcard" style="display:none;">
+        <div id="question"></div>
+        <div id="answers"></div>
+        <button onclick="checkAnswer()">Answer</button>
+        <button onclick="nextQuestion()">Next</button>
+        <button onclick="loadHomeScreen()">Back to Home</button>
+    </div>
+
+    <script src="csvLoader.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

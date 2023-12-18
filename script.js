@@ -40,6 +40,7 @@ const questions = [
 ];
 let currentQuestionIndex = 0;
 let selectedAnswerIndex = null;
+let correctAnswerRevealed = false;
 
 function loadQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
@@ -65,16 +66,19 @@ function checkAnswer() {
   const answers = document.querySelectorAll('.answer');
   answers.forEach((answer, index) => {
     answer.classList.remove('correct', 'wrong', 'selected'); // Clear previous answer highlighting
-    if (index === correctAnswerIndex) {
+    if (index === correctAnswerIndex && correctAnswerRevealed) {
       answer.classList.add('correct', 'selected'); // Green for correct answer if selected
     } else if (index === selectedAnswerIndex && index !== correctAnswerIndex) {
       answer.classList.add('wrong'); // Red for wrong answer
     }
   });
+
+  correctAnswerRevealed = true;
 }
 
 function nextQuestion() {
   selectedAnswerIndex = null;
+  correctAnswerRevealed = false;
   currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
   loadQuestion();
 }

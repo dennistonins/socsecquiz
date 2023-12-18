@@ -14,7 +14,7 @@ function parseCSV(csv) {
 
 // Function to load questions from CSV
 function loadQuestionsFromCSV() {
-  fetch('questions.csv') // Update with your actual CSV file path
+  fetch('your_file_path/questions.csv') // Update with your actual CSV file path
     .then(response => response.text())
     .then(data => {
       questions = parseCSV(data);
@@ -30,13 +30,21 @@ function loadQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
   document.getElementById('question').innerText = currentQuestion.question;
 
+  // Extract answers and correct answer from current question
+  const answers = [
+    currentQuestion.answer1,
+    currentQuestion.answer2,
+    currentQuestion.answer3,
+    currentQuestion.answer4
+  ];
+
   // Copy the answers array and shuffle the order only if it's a new question
-  const shuffledAnswers = currentQuestion.shuffledAnswers || [...currentQuestion.answers];
+  const shuffledAnswers = currentQuestion.shuffledAnswers || [...answers];
   if (!currentQuestion.shuffledAnswers) {
     shuffleArray(shuffledAnswers);
 
     // Update the correct answer index for the shuffled answers
-    currentQuestion.shuffledCorrectAnswer = shuffledAnswers.indexOf(currentQuestion.answers[currentQuestion.correctAnswer]);
+    currentQuestion.shuffledCorrectAnswer = shuffledAnswers.indexOf(currentQuestion.correctAnswer);
 
     currentQuestion.shuffledAnswers = shuffledAnswers;
   }
@@ -68,20 +76,4 @@ function checkAnswer() {
 }
 
 // Next question function
-function nextQuestion() {
-  selectedAnswerIndex = null;
-  correctAnswerRevealed = false;
-
-  // Reset the shuffledAnswers and shuffledCorrectAnswer properties for the next question
-  const currentQuestion = questions[currentQuestionIndex];
-  currentQuestion.shuffledAnswers = null;
-  currentQuestion.shuffledCorrectAnswer = null;
-
-  // Randomly select the next question index
-  currentQuestionIndex = Math.floor(Math.random() * questions.length);
-
-  loadQuestion();
-}
-
-// Initial load from CSV
-loadQuestionsFromCSV();
+function next

@@ -54,7 +54,18 @@ function selectModule(module) {
 
 function loadQuestion() {
     let filteredQuestions = selectedModule ? questions.filter(q => q.module === selectedModule) : questions;
-    if (currentQuestionIndex >= filteredQuestions.length) currentQuestionIndex = 0;
+
+    // Check if there are any questions available
+    if (!filteredQuestions.length) {
+        console.error('No questions available for the selected module:', selectedModule);
+        return; // Exit the function if no questions are available
+    }
+
+    // Ensure currentQuestionIndex is within bounds
+    if (currentQuestionIndex < 0 || currentQuestionIndex >= filteredQuestions.length) {
+        currentQuestionIndex = 0; // Reset index to the start
+    }
+
     let currentQuestion = filteredQuestions[currentQuestionIndex];
 
     document.getElementById('question').innerText = currentQuestion.question;

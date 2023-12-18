@@ -80,7 +80,10 @@ function checkAnswer() {
 function nextQuestion() {
   selectedAnswerIndex = null;
   correctAnswerRevealed = false;
-  currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+
+  // Randomly select the next question index
+  currentQuestionIndex = Math.floor(Math.random() * questions.length);
+
   loadQuestion();
 }
 

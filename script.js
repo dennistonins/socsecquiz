@@ -53,9 +53,12 @@ function loadQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
   document.getElementById('question').innerText = currentQuestion.question;
 
-  // Copy the answers array and shuffle the order
-  const shuffledAnswers = [...currentQuestion.answers];
-  shuffleArray(shuffledAnswers);
+  // Copy the answers array and shuffle the order only if it's a new question
+  const shuffledAnswers = currentQuestion.shuffledAnswers || [...currentQuestion.answers];
+  if (!currentQuestion.shuffledAnswers) {
+    shuffleArray(shuffledAnswers);
+    currentQuestion.shuffledAnswers = shuffledAnswers;
+  }
 
   const answersHtml = shuffledAnswers.map((answer, index) => {
     const selectedClass = index === selectedAnswerIndex ? 'selected' : '';
@@ -90,6 +93,10 @@ function checkAnswer() {
 function nextQuestion() {
   selectedAnswerIndex = null;
   correctAnswerRevealed = false;
+
+  // Reset the shuffledAnswers property for the next question
+  const currentQuestion = questions[currentQuestionIndex];
+  currentQuestion.shuffledAnswers = null;
 
   // Randomly select the next question index
   currentQuestionIndex = Math.floor(Math.random() * questions.length);

@@ -1,8 +1,6 @@
-question,answer1,answer2,answer3,answer4,correctAnswer,
-What is the total percentage of an employee's earned income (up to the annual limit) that is paid each year into Social Security by the employee and employer?,6.20%,2.90%,15.30%,12.40%,1,
-"If a retiree with a FRA of 67 collects retirement benefits at age 66,  what percentage of their PIA will they receive?",108%,86%,93%,100%,1,
-Why is life expectancy important to discuss when analyzing optimal Social Security claiming dates?,Longevity risk,Survivor benefits for couples,Maximization of benefits,All of the above,1,
-How does the money paid to a divorced spouse affect the benefit of the worker?,The worker's benefit amount is not affected,The worker's benefit amount is decreased if it is above their PIA,The worker's benefit amount can be increased or decreased depending on the ex-spouse's earnings,The worker's benefit amount is decreased by a percentage depending on when the ex-spouse collects benefit,1,
-Social Security was originally designed as what type of system for retirees?,Pay as you go so that funds coming in from payroll taxes equaled those being paid out each year as benefits.,Each retiree had their own Social Security retirement account.,Women were not allowed to collect Social Security.,It was designed as a family-based insurance program.,1,
-"If Margaret's PIA is $2,550 and her FRA is 67,  what is the difference in her benefit if she claims at age 67 versus age 70?","$7,344 per year",$860 per month,$660 per month,"$9,644 per year",1,
-"Tony has a PIA of $2,500 and a FMB of $4,375. He claims his benefits at FRA. His wife Tina (60) is caring for their two children Karen (15) and Kevin (17). Considering the FMB rules,  how much will Tina Karen and Kevin each receive?",$833 ,"$2,500 ","$1,250 ",$625 ,1,
+question,answer1,answer2,answer3,answer4,correctAnswer
+Question 1,Red,Blue,Green,Purple,1
+Question 2,Red,Blue,Green,Purple,1
+Question 3,Red,Blue,Green,Purple,1
+Question 4,Red,Blue,Green,Purple,1
+Question 5,Red,Blue,Green,Purple,1

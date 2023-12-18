@@ -1,3 +1,5 @@
+/* style.css */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -15,14 +17,14 @@ body {
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  max-width: 600px; /* Set a maximum width to avoid taking up the entire screen on larger displays */
-  width: 100%; /* Take up the full width of the container */
+  max-width: 600px;
+  width: 100%;
   height: 100%;
 }
 
 #question {
   font-size: 18px;
-  margin: 20px 0; /* Add space above and below the question */
+  margin: 20px 0;
 }
 
 #answers {
@@ -43,7 +45,9 @@ body {
   background-color: #f0f0f0;
 }
 
-#answerBtn, #nextBtn {
+#answerBtn,
+#nextBtn,
+#backBtn {  /* Added style for the back button */
   background-color: #4CAF50;
   color: #fff;
   padding: 10px 20px;
@@ -54,7 +58,9 @@ body {
   transition: background-color 0.3s ease;
 }
 
-#answerBtn:hover, #nextBtn:hover {
+#answerBtn:hover,
+#nextBtn:hover,
+#backBtn:hover {
   background-color: #45a049;
 }
 
@@ -63,9 +69,25 @@ body {
 }
 
 .correct {
-  background-color: #8aff8a !important; /* Green background for the correct answer */
+  background-color: #8aff8a !important;
 }
 
 .wrong {
-  background-color: #ff8a8a !important; /* Red background for the wrong answer */
+  background-color: #ff8a8a !important;
+}
+
+/* Add styles for the home screen buttons */
+#homeScreen button {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#homeScreen button:hover {
+  background-color: #45a049;
 }

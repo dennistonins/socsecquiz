@@ -66,16 +66,14 @@ function checkAnswer() {
   const answers = document.querySelectorAll('.answer');
   answers.forEach((answer, index) => {
     answer.classList.remove('correct', 'wrong', 'selected'); // Clear previous answer highlighting
-    if (index === correctAnswerIndex && correctAnswerRevealed) {
+    if (index === correctAnswerIndex && !correctAnswerRevealed) {
       answer.classList.add('correct', 'selected'); // Green for correct answer if selected
     } else if (index === selectedAnswerIndex && index !== correctAnswerIndex) {
       answer.classList.add('wrong'); // Red for wrong answer
     }
   });
 
-  if (selectedAnswerIndex === correctAnswerIndex) {
-    correctAnswerRevealed = true;
-  }
+  correctAnswerRevealed = true;
 }
 
 function nextQuestion() {

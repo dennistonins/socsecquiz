@@ -64,12 +64,12 @@ function checkAnswer() {
 
   const answers = document.querySelectorAll('.answer');
   answers.forEach((answer, index) => {
-    answer.classList.remove('correct', 'wrong'); // Clear previous answer highlighting
+    answer.classList.remove('correct', 'wrong', 'selected'); // Clear previous answer highlighting
     if (index === correctAnswerIndex) {
       if (selectedAnswerIndex === correctAnswerIndex) {
-        answer.classList.add('correct'); // Green for correct answer if selected
+        answer.classList.add('correct', 'selected'); // Green for correct answer if selected
       } else {
-        answer.classList.add('correct', 'selected'); // Green for correct answer
+        answer.classList.add('correct'); // Green for correct answer
       }
     } else if (index === selectedAnswerIndex) {
       answer.classList.add('wrong'); // Red for wrong answer

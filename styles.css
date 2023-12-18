@@ -63,9 +63,9 @@ body {
 }
 
 .correct {
-  background-color: #8aff8a; /* Green background for the correct answer */
+  background-color: #8aff8a !important; /* Green background for the correct answer */
 }
 
 .wrong {
-  background-color: #ff8a8a; /* Red background for the wrong answer */
+  background-color: #ff8a8a !important; /* Red background for the wrong answer */
 }

@@ -1,18 +1,12 @@
 // script.js
 
-// Remove the hardcoded questions array
-// const questions = [
-//   { question: "Question 1?", answers: ["A", "B", "C", "D"], correctAnswer: 0 },
-//   // Add more questions here...
-// ];
+const questions = [];
 
 let currentQuestionIndex = null; // Initialize to null since questions are loaded asynchronously
 let selectedAnswerIndex = null;
 let correctAnswerRevealed = false;
 
-
-
-// Use the loadQuestionsFromCSV function from csvLoader.js
+// Use the loadCSV and parseCSV functions from csvLoader.js
 async function loadQuestionsFromCSV(file) {
   const csvData = await loadCSV(file);
   return parseCSV(csvData);
@@ -24,12 +18,11 @@ const questionsPromise = loadQuestionsFromCSV('questions.csv');
 // Handle the loaded questions
 questionsPromise.then((loadedQuestions) => {
   // Set the questions array to the loaded questions
-  const questions = loadedQuestions;
+  questions.push(...loadedQuestions);
   // Now, you can use the questions array
   currentQuestionIndex = Math.floor(Math.random() * questions.length);
   loadQuestion();
 });
-
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {

@@ -6,7 +6,7 @@
 //   // Add more questions here...
 // ];
 
-let currentQuestionIndex = Math.floor(Math.random() * questions.length);
+let currentQuestionIndex = null; // Initialize to null since questions are loaded asynchronously
 let selectedAnswerIndex = null;
 let correctAnswerRevealed = false;
 

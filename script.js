@@ -64,15 +64,17 @@ function checkAnswer() {
 
   const answers = document.querySelectorAll('.answer');
   answers.forEach((answer, index) => {
-    answer.classList.remove('correct'); // Clear previous correct answer highlighting
+    answer.classList.remove('correct', 'wrong'); // Clear previous answer highlighting
     if (index === correctAnswerIndex) {
-      answer.classList.add('correct');
+      if (selectedAnswerIndex === correctAnswerIndex) {
+        answer.classList.add('correct'); // Green for correct answer if selected
+      } else {
+        answer.classList.add('correct', 'selected'); // Green for correct answer
+      }
+    } else if (index === selectedAnswerIndex) {
+      answer.classList.add('wrong'); // Red for wrong answer
     }
   });
-
-  if (selectedAnswerIndex !== null) {
-    answers[selectedAnswerIndex].classList.add('selected');
-  }
 }
 
 function nextQuestion() {

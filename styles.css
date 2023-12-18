@@ -58,10 +58,14 @@ body {
   background-color: #45a049;
 }
 
-.correct {
-  background-color: yellow;
-}
-
 .selected {
   background-color: #e0e0e0;
+}
+
+.correct {
+  background-color: #8aff8a; /* Green background for the correct answer */
+}
+
+.wrong {
+  background-color: #ff8a8a; /* Red background for the wrong answer */
 }

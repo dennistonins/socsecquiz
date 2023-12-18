@@ -12,16 +12,27 @@ function shuffleArray(array) {
   }
 }
 
-function loadQuestionsFromCSV() {
-  fetch(csvFilePath)
-    .then(response => response.text())
-    .then(data => {
-      questions = parseCSV(data);
-      console.log('Parsed Questions:', questions);
-      currentQuestionIndex = Math.floor(Math.random() * questions.length);
-      loadQuestion();
-    })
-    .catch(error => console.error('Error loading CSV:', error));
+function loadQuestion() {
+  const currentQuestion = questions[currentQuestionIndex];
+  document.getElementById('question').innerText = currentQuestion.question;
+
+  // Copy the answers array and shuffle the order only if it's a new question
+  const shuffledAnswers = currentQuestion.shuffledAnswers || [...currentQuestion.answers];
+  if (!currentQuestion.shuffledAnswers) {
+    shuffleArray(shuffledAnswers);
+
+    // Update the correct answer index for the shuffled answers
+    currentQuestion.shuffledCorrectAnswer = shuffledAnswers.indexOf(currentQuestion.answers[currentQuestion.correctAnswer]);
+
+    currentQuestion.shuffledAnswers = shuffledAnswers;
+  }
+
+  const answersHtml = shuffledAnswers.map((answer, index) => {
+    const selectedClass = index === selectedAnswerIndex ? 'selected' : '';
+    return `<div class="answer ${selectedClass}" onclick="selectAnswer(${index})">${answer}</div>`;
+  }).join('');
+
+  document.getElementById('answers').innerHTML = answersHtml;
 }
 
 function parseCSV(csv) {
@@ -84,9 +95,9 @@ function checkAnswer() {
   const answers = document.querySelectorAll('.answer');
   answers.forEach((answer, index) => {
     answer.classList.remove('correct', 'wrong', 'selected'); // Clear previous answer highlighting
-    if (index === correctAnswerIndex) {
-      answer.classList.add('correct'); // Highlight the correct answer in green
-    } else if (index === selectedAnswerIndex) {
+    if (index === correctAnswerIndex && selectedAnswerIndex === correctAnswerIndex) {
+      answer.classList.add('correct', 'selected'); // Green for correct answer if selected
+    } else if (index === selectedAnswerIndex && index !== correctAnswerIndex) {
       answer.classList.add('wrong'); // Red for wrong answer
     }
   });

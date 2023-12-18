@@ -86,7 +86,7 @@ function checkAnswer() {
     answer.classList.remove('correct', 'wrong', 'selected'); // Clear previous answer highlighting
     if (index === correctAnswerIndex) {
       answer.classList.add('correct'); // Highlight the correct answer in green
-    } else if (index === selectedAnswerIndex && index !== correctAnswerIndex) {
+    } else if (index === selectedAnswerIndex) {
       answer.classList.add('wrong'); // Red for wrong answer
     }
   });

@@ -38,6 +38,11 @@ function loadHomeScreen() {
   document.getElementById('flashcard').style.display = 'none';
 }
 
+function showFlashcardView() {
+    document.getElementById('homeScreen').style.display = 'none'; // Hide home screen
+    document.getElementById('flashcard').style.display = 'flex'; // Show flashcard view
+}
+
 function loadQuestion() {
   console.log('Loading question for module:', selectedModule);
 
@@ -51,9 +56,10 @@ function loadQuestion() {
 }
 
 function selectModule(module) {
-  console.log('Selected module:', module);
-  selectedModule = module;
-  loadQuestion();
+    console.log('Selected module:', module);
+    selectedModule = module;
+    showFlashcardView(); // Add this line
+    loadQuestion();
 }
 
 function selectAnswer(selectedIndex) {
@@ -95,3 +101,5 @@ function nextQuestion() {
 // Initial load (unchanged)
 
 loadQuestion();
+
+

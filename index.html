@@ -1,3 +1,5 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +9,22 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="flashcard">
+  <div id="homeScreen">
+    <button onclick="selectModule(null)">All Questions</button>
+    <button onclick="selectModule('module1.1')">Module 1.1</button>
+    <button onclick="selectModule('module1.2')">Module 1.2</button>
+    <!-- Add buttons for other modules as needed -->
+  </div>
+
+  <div id="flashcard" style="display: none;">
     <div id="question"></div>
     <div id="answers"></div>
     <button id="answerBtn" onclick="checkAnswer()">Answer</button>
     <button id="nextBtn" onclick="nextQuestion()">Next</button>
+    <button id="backBtn" onclick="loadHomeScreen()">Back to Home</button>
   </div>
+
   <script src="csvLoader.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
-

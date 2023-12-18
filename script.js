@@ -2,94 +2,54 @@
 
 const questions = [];
 
-let currentQuestionIndex = null; // Initialize to null since questions are loaded asynchronously
+let currentQuestionIndex = null;
 let selectedAnswerIndex = null;
 let correctAnswerRevealed = false;
+let selectedModule = null;
 
-// Use the loadCSV and parseCSV functions from csvLoader.js
+// ... existing script.js content ...
+
 async function loadQuestionsFromCSV(file) {
   const csvData = await loadCSV(file);
   return parseCSV(csvData);
 }
 
-// Load the questions from the CSV file
 const questionsPromise = loadQuestionsFromCSV('questions.csv');
 
-// Handle the loaded questions
 questionsPromise.then((loadedQuestions) => {
-  // Set the questions array to the loaded questions
   questions.push(...loadedQuestions);
-  // Now, you can use the questions array
   currentQuestionIndex = Math.floor(Math.random() * questions.length);
   loadQuestion();
 });
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
+function loadHomeScreen() {
+  // Implement the home screen with buttons for each module and an "All Questions" button
+  // Handle button clicks to set the selectedModule and load questions accordingly
+  // This function should be called initially and when the "X" button is clicked on the flashcard page
 }
 
 function loadQuestion() {
-  const currentQuestion = questions[currentQuestionIndex];
-  document.getElementById('question').innerText = currentQuestion.question;
+  const filteredQuestions = selectedModule
+    ? questions.filter((q) => q.module === selectedModule)
+    : questions;
 
-  // Copy the answers array and shuffle the order only if it's a new question
-  const shuffledAnswers = currentQuestion.shuffledAnswers || [...currentQuestion.answers];
-  if (!currentQuestion.shuffledAnswers) {
-    shuffleArray(shuffledAnswers);
-
-    // Update the correct answer index for the shuffled answers
-    currentQuestion.shuffledCorrectAnswer = shuffledAnswers.indexOf(currentQuestion.answers[currentQuestion.correctAnswer]);
-
-    currentQuestion.shuffledAnswers = shuffledAnswers;
-  }
-
-  const answersHtml = shuffledAnswers.map((answer, index) => {
-    const selectedClass = index === selectedAnswerIndex ? 'selected' : '';
-    return `<div class="answer ${selectedClass}" onclick="selectAnswer(${index})">${answer}</div>`;
-  }).join('');
-
-  document.getElementById('answers').innerHTML = answersHtml;
+  // ... existing loadQuestion logic ...
 }
 
-function selectAnswer(selectedIndex) {
-  selectedAnswerIndex = selectedIndex;
+function selectModule(module) {
+  selectedModule = module;
   loadQuestion();
 }
 
-function checkAnswer() {
-  const currentQuestion = questions[currentQuestionIndex];
-  const correctAnswerIndex = currentQuestion.shuffledCorrectAnswer;
-
-  const answers = document.querySelectorAll('.answer');
-  answers.forEach((answer, index) => {
-    answer.classList.remove('correct', 'wrong', 'selected'); // Clear previous answer highlighting
-    if (index === correctAnswerIndex && selectedAnswerIndex === correctAnswerIndex) {
-      answer.classList.add('correct', 'selected'); // Green for correct answer if selected
-    } else if (index === selectedAnswerIndex && index !== correctAnswerIndex) {
-      answer.classList.add('wrong'); // Red for wrong answer
-    }
-  });
-
-  correctAnswerRevealed = true;
+function loadFlashcardPage() {
+  // Implement the flashcard page with an "X" button in the upper right corner
+  // Handle the "X" button click to navigate back to the home screen
+  document.getElementById('homeScreen').style.display = 'none';
+  document.getElementById('flashcard').style.display = 'block';
 }
 
-function nextQuestion() {
-  selectedAnswerIndex = null;
-  correctAnswerRevealed = false;
 
-  // Reset the shuffledAnswers and shuffledCorrectAnswer properties for the next question
-  const currentQuestion = questions[currentQuestionIndex];
-  currentQuestion.shuffledAnswers = null;
-  currentQuestion.shuffledCorrectAnswer = null;
-
-  // Randomly select the next question index
-  currentQuestionIndex = Math.floor(Math.random() * questions.length);
-
-  loadQuestion();
-}
+// ... existing script.js content ...
 
 // Initial load
-loadQuestion();
+loadHomeScreen();

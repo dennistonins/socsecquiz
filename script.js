@@ -14,7 +14,7 @@ function parseCSV(csv) {
 
 // Function to load questions from CSV
 function loadQuestionsFromCSV() {
-  fetch('your_file_path/questions.csv') // Update with your actual CSV file path
+  fetch('questions.csv') // Update with your actual CSV file path
     .then(response => response.text())
     .then(data => {
       questions = parseCSV(data);

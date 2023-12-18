@@ -66,8 +66,10 @@ const questions = [
    const answers = document.querySelectorAll('.answer');
    answers.forEach((answer, index) => {
      answer.classList.remove('correct', 'wrong', 'selected'); // Clear previous answer highlighting
-     if (index === correctAnswerIndex && selectedAnswerIndex === correctAnswerIndex && answerButtonClicked) {
-       answer.classList.add('correct', 'selected'); // Green for correct answer only if selected on the second click
+     if (index === correctAnswerIndex) {
+       if (selectedAnswerIndex === correctAnswerIndex && answerButtonClicked) {
+         answer.classList.add('correct', 'selected'); // Green for correct answer only if selected on the second click
+       }
      } else if (index === selectedAnswerIndex) {
        answer.classList.add('wrong'); // Red for wrong answer
      }

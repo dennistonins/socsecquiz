@@ -15,6 +15,9 @@ body {
   padding: 20px;
   border-radius: 8px;
   text-align: center;
+  max-width: 600px; /* Set a maximum width to avoid taking up the entire screen on larger displays */
+  width: 100%; /* Take up the full width of the container */
+  height: 100%;
 }
 
 #question {
@@ -58,3 +61,5 @@ body {
 .correct {
   background-color: yellow;
 }
+
+

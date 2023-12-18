@@ -7,7 +7,7 @@ let selectedAnswerIndex = null;
 let correctAnswerRevealed = false;
 let selectedModule = null;
 
-// ... existing script.js content ...
+// CSV loading functions (unchanged)
 
 async function loadQuestionsFromCSV(file) {
   const csvData = await loadCSV(file);
@@ -22,39 +22,76 @@ questionsPromise.then((loadedQuestions) => {
   loadQuestion();
 });
 
+// Helper functions (unchanged)
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+// Flashcard functions (unchanged)
+
 function loadHomeScreen() {
-  // Implement the home screen with buttons for each module and an "All Questions" button
-  // Handle button clicks to set the selectedModule and load questions accordingly
-  // This function should be called initially and when the "X" button is clicked on the flashcard page
-  document.getElementById('homeScreen').style.display = 'flex'; // or 'block' depending on your styling
+  document.getElementById('homeScreen').style.display = 'flex';
   document.getElementById('flashcard').style.display = 'none';
 }
 
 function loadQuestion() {
-  console.log('Loading question for module:', selectedModule); // Add this line for debugging
+  console.log('Loading question for module:', selectedModule);
 
   const filteredQuestions = selectedModule
     ? questions.filter((q) => q.module === selectedModule)
     : questions;
 
-  console.log('Filtered questions:', filteredQuestions); // Add this line for debugging
+  console.log('Filtered questions:', filteredQuestions);
 
+  // ... existing loadQuestion logic ...
+}
 
 function selectModule(module) {
-  console.log('Selected module:', module); // Add this line for debugging
+  console.log('Selected module:', module);
   selectedModule = module;
   loadQuestion();
 }
 
-function loadFlashcardPage() {
-  // Implement the flashcard page with an "X" button in the upper right corner
-  // Handle the "X" button click to navigate back to the home screen
-  document.getElementById('homeScreen').style.display = 'none';
-  document.getElementById('flashcard').style.display = 'block';
+function selectAnswer(selectedIndex) {
+  selectedAnswerIndex = selectedIndex;
+  loadQuestion();
 }
 
+function checkAnswer() {
+  const currentQuestion = questions[currentQuestionIndex];
+  const correctAnswerIndex = currentQuestion.shuffledCorrectAnswer;
 
-// ... existing script.js content ...
+  const answers = document.querySelectorAll('.answer');
+  answers.forEach((answer, index) => {
+    answer.classList.remove('correct', 'wrong', 'selected');
 
-// Initial load
-loadHomeScreen();
+    if (index === correctAnswerIndex && selectedAnswerIndex === correctAnswerIndex) {
+      answer.classList.add('correct', 'selected');
+    } else if (index === selectedAnswerIndex && index !== correctAnswerIndex) {
+      answer.classList.add('wrong');
+    }
+  });
+
+  correctAnswerRevealed = true;
+}
+
+function nextQuestion() {
+  selectedAnswerIndex = null;
+  correctAnswerRevealed = false;
+
+  const currentQuestion = questions[currentQuestionIndex];
+  currentQuestion.shuffledAnswers = null;
+  currentQuestion.shuffledCorrectAnswer = null;
+
+  currentQuestionIndex = Math.floor(Math.random() * questions.length);
+
+  loadQuestion();
+}
+
+// Initial load (unchanged)
+
+loadQuestion();

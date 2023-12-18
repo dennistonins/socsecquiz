@@ -36,7 +36,6 @@ const questions = [
     { question: "Full Retirement Age (FRA) is used for which of the following?", answers: ["Determining if a worker is eligible for Social Security benefits.", "Determining the age which a retiree collects their PIA.", "Determining whether a worker's pension will affect their benefit using WEP.", "Determining a worker's PIA benefit amount based on their earnings history."], correctAnswer: 0 },
     { question: "What is the definition of the Primary Insurance Amount (PIA)?", answers: ["The Social Security benefit you receive if you claim benefits at the exact month and year of your full retirement age (FRA)", "The amount of insurance you will receive if you file for Social Security at age 62", "The Social Security benefit you receive if you claim benefits at age 70", "The amount of insurance you will receive if you file for Social Security at the time you stop working"], correctAnswer: 0 },
     { question: "What determines the amount of a divorced spouse's benefit, and what is the maximum amount?", answers: ["Depending on the length of the marriage, the ex-spousal benefit is between 32.5% and 50% of their ex's PIA", "The ex-spousal benefit is a fixed benefit amount, always 50% of the worker's PIA", "The ex-spousal benefit is dependent on the age of the person when they file, with the maximum of 50% of their ex's PIA", "A ex-spouse is not entitled to Social Security benefits"], correctAnswer: 0 },
-  // Add more questions here...
 ];
 let currentQuestionIndex = 0;
 let selectedAnswerIndex = null;

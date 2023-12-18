@@ -1,4 +1,4 @@
-const csvFilePath = 'questions.csv'; // Adjust the file path accordingly
+const csvFilePath = '/questions.csv'; // Adjust the file path accordingly
 
 let questions = [];
 let currentQuestionIndex = null;

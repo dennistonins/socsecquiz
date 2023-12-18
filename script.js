@@ -10,6 +10,27 @@ let currentQuestionIndex = Math.floor(Math.random() * questions.length);
 let selectedAnswerIndex = null;
 let correctAnswerRevealed = false;
 
+
+
+// Use the loadQuestionsFromCSV function from csvLoader.js
+async function loadQuestionsFromCSV(file) {
+  const csvData = await loadCSV(file);
+  return parseCSV(csvData);
+}
+
+// Load the questions from the CSV file
+const questionsPromise = loadQuestionsFromCSV('questions.csv');
+
+// Handle the loaded questions
+questionsPromise.then((loadedQuestions) => {
+  // Set the questions array to the loaded questions
+  const questions = loadedQuestions;
+  // Now, you can use the questions array
+  currentQuestionIndex = Math.floor(Math.random() * questions.length);
+  loadQuestion();
+});
+
+
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -79,20 +100,3 @@ function nextQuestion() {
 
 // Initial load
 loadQuestion();
-
-
-// Use the loadCSV and parseCSV functions from csvLoader.js
-async function loadQuestionsFromCSV(file) {
-  const csvData = await loadCSV(file);
-  return parseCSV(csvData);
-}
-
-// Load the questions from the CSV file
-const questionsPromise = loadQuestionsFromCSV('questions.csv');
-
-// Handle the loaded questions
-questionsPromise.then((loadedQuestions) => {
-  // Merge the loaded questions with the existing ones
-  questions.push(...loadedQuestions);
-  loadQuestion();
-});

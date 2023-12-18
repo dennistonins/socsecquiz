@@ -54,3 +54,7 @@ body {
 #answerBtn:hover, #nextBtn:hover {
   background-color: #45a049;
 }
+
+.correct {
+  background-color: yellow;
+}

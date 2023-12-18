@@ -26,6 +26,8 @@ function loadHomeScreen() {
   // Implement the home screen with buttons for each module and an "All Questions" button
   // Handle button clicks to set the selectedModule and load questions accordingly
   // This function should be called initially and when the "X" button is clicked on the flashcard page
+  document.getElementById('homeScreen').style.display = 'flex'; // or 'block' depending on your styling
+  document.getElementById('flashcard').style.display = 'none';
 }
 
 function loadQuestion() {

@@ -22,7 +22,7 @@ body {
 
 #question {
   font-size: 18px;
-  margin-bottom: 20px;
+  margin: 20px 0; /* Add space above and below the question */
 }
 
 #answers {

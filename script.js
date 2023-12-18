@@ -39,6 +39,7 @@ function loadQuestion() {
 }
 
 function selectModule(module) {
+  console.log('Selected module:', module); // Add this line for debugging
   selectedModule = module;
   loadQuestion();
 }

@@ -59,7 +59,7 @@ function loadQuestion() {
 
     document.getElementById('question').innerText = currentQuestion.question;
     let answersHtml = currentQuestion.answers.map((answer, index) =>
-        `<button onclick="selectAnswer(${index})">${answer}</button>`
+        `<div class="answer" onclick="selectAnswer(${index})">${answer}</div>`
     ).join('');
     document.getElementById('answers').innerHTML = answersHtml;
 }
@@ -67,17 +67,35 @@ function loadQuestion() {
 function selectAnswer(index) {
     let filteredQuestions = selectedModule ? questions.filter(q => q.module === selectedModule) : questions;
     let currentQuestion = filteredQuestions[currentQuestionIndex];
-    alert(index === currentQuestion.correctAnswer ? "Correct!" : "Wrong!");
+    let answersDivs = document.querySelectorAll('#answers .answer');
+
+    // Remove the 'selected' class from all answers
+    answersDivs.forEach(answerDiv => answerDiv.classList.remove('selected'));
+
+    // Add the 'selected' class to the clicked answer
+    answersDivs[index].classList.add('selected');
 }
 
 function checkAnswer() {
-    // Logic to check the answer
+    let filteredQuestions = selectedModule ? questions.filter(q => q.module === selectedModule) : questions;
+    let currentQuestion = filteredQuestions[currentQuestionIndex];
+    let selectedAnswerIndex = Array.from(document.querySelectorAll('#answers .answer')).findIndex(answerDiv => answerDiv.classList.contains('selected'));
+
+    if (selectedAnswerIndex === -1) {
+        // No answer selected
+        return;
+    }
+
+    let isCorrect = selectedAnswerIndex === currentQuestion.correctAnswer;
+
+    // Remove the 'selected' class from all answers
+    document.querySelectorAll('#answers .answer').forEach(answerDiv => answerDiv.classList.remove('selected'));
+
+    // Add the appropriate class based on correctness
+    document.querySelectorAll('#answers .answer')[selectedAnswerIndex].classList.add(isCorrect ? 'correct' : 'wrong');
 }
 
-function nextQuestion() {
-    currentQuestionIndex++;
-    loadQuestion();
-}
+// ... (remaining code)
 
 // Initial load
 initialize();

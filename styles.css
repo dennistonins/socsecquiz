@@ -2,8 +2,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-#homeScreen button,
-#flashcard button {
+.button {
     margin: 5px;
     padding: 10px;
     cursor: pointer;

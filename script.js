@@ -65,8 +65,6 @@ function loadQuestion() {
 }
 
 function selectAnswer(index) {
-    let filteredQuestions = selectedModule ? questions.filter(q => q.module === selectedModule) : questions;
-    let currentQuestion = filteredQuestions[currentQuestionIndex];
     let answersDivs = document.querySelectorAll('#answers .answer');
 
     // Remove the 'selected' class from all answers
@@ -95,7 +93,10 @@ function checkAnswer() {
     document.querySelectorAll('#answers .answer')[selectedAnswerIndex].classList.add(isCorrect ? 'correct' : 'wrong');
 }
 
-// ... (remaining code)
+function nextQuestion() {
+    currentQuestionIndex++;
+    loadQuestion();
+}
 
 // Initial load
 initialize();

@@ -30,8 +30,6 @@ async function loadQuestionsFromCSV() {
     }).filter(question => question !== null);
 }
 
------
-
 function loadHomeScreen() {
     document.getElementById('homeScreen').style.display = 'block';
     document.getElementById('flashcard').style.display = 'none';
@@ -48,15 +46,13 @@ function selectModule(module) {
 function loadQuestion() {
     let filteredQuestions = selectedModule ? questions.filter(q => q.module === selectedModule) : questions;
 
-    // Check if there are any questions available
     if (!filteredQuestions.length) {
         console.error('No questions available for the selected module:', selectedModule);
-        return; // Exit the function if no questions are available
+        return;
     }
 
-    // Ensure currentQuestionIndex is within bounds
     if (currentQuestionIndex < 0 || currentQuestionIndex >= filteredQuestions.length) {
-        currentQuestionIndex = 0; // Reset index to the start
+        currentQuestionIndex = 0;
     }
 
     let currentQuestion = filteredQuestions[currentQuestionIndex];

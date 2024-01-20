@@ -64,15 +64,14 @@ function loadQuestion() {
     document.getElementById('answers').innerHTML = answersHtml;
 }
 
+
 function selectAnswer(index) {
     let answersDivs = document.querySelectorAll('#answers .answer');
 
-    // Remove the 'selected' class from all answers
-    answersDivs.forEach(answerDiv => answerDiv.classList.remove('selected'));
-
-    // Add the 'selected' class to the clicked answer
-    answersDivs[index].classList.add('selected');
+    // Toggle the 'selected' class for the clicked answer
+    answersDivs[index].classList.toggle('selected');
 }
+
 
 function checkAnswer() {
     let filteredQuestions = selectedModule ? questions.filter(q => q.module === selectedModule) : questions;

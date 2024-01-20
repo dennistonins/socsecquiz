@@ -57,21 +57,22 @@ function loadQuestion() {
 
     let currentQuestion = filteredQuestions[currentQuestionIndex];
 
-    document.getElementById('question').innerText = currentQuestion.question;
+    document.gtElementById('question').innerText = currentQuestion.question;
     let answersHtml = currentQuestion.answers.map((answer, index) =>
         `<div class="answer" onclick="selectAnswer(${index})">${answer}</div>`
     ).join('');
     document.getElementById('answers').innerHTML = answersHtml;
 }
 
-
 function selectAnswer(index) {
     let answersDivs = document.querySelectorAll('#answers .answer');
 
-    // Toggle the 'selected' class for the clicked answer
-    answersDivs[index].classList.toggle('selected');
-}
+    // Remove the 'selected' class from all answers
+    answersDivs.forEach(answerDiv => answerDiv.classList.remove('selected'));
 
+    // Add the 'selected' class to the clicked answer
+    answersDivs[index].classList.add('selected');
+}
 
 function checkAnswer() {
     let filteredQuestions = selectedModule ? questions.filter(q => q.module === selectedModule) : questions;

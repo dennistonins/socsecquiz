@@ -57,7 +57,7 @@ function loadQuestion() {
 
     let currentQuestion = filteredQuestions[currentQuestionIndex];
 
-    document.gtElementById('question').innerText = currentQuestion.question;
+    document.getElementById('question').innerText = currentQuestion.question;
     let answersHtml = currentQuestion.answers.map((answer, index) =>
         `<div class="answer" onclick="selectAnswer(${index})">${answer}</div>`
     ).join('');

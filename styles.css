@@ -72,3 +72,7 @@ body {
 .wrong {
     background-color: #ff8a8a !important; /* Red background for the wrong answer */
 }
+
+div#moduleButtons {
+    display: inline-grid;
+}

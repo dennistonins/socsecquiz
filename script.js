@@ -1,18 +1,25 @@
 var currentModule = "";
 var currentQuestionIndex = 0;
+var currentQuestionIndexList = [];
 var currentQuestion = [];
 var moduleQuestions = [];
 var questions = [];
 
 function loadQuestions(module) {
     currentModule = module;
-    currentQuestionIndex = 0;
 
     if(currentModule == 'all'){
         moduleQuestions = questions;
     }else{
         moduleQuestions = questions.filter(question => question.module === module);
     }
+
+    var randomQuestionNumber = Math.floor(Math.random() * moduleQuestions.length);
+    if(currentQuestionIndexList.includes(randomQuestionNumber)){
+        return loadQuestions(module);
+    }
+    currentQuestionIndexList.push(randomQuestionNumber);
+    currentQuestionIndex = randomQuestionNumber;
     
     displayQuestion(moduleQuestions[currentQuestionIndex]);
 }
@@ -26,34 +33,48 @@ function displayQuestion(question) {
 
     questionDiv.textContent = question.question;
     answersDiv.innerHTML = "";
-
-    console.log('question', question);
+    
     var options = [];
     for (var key in question) {
         if (key.startsWith('answer')) {
-            options.push(question[key]);
+            options.push({ originalValue: options.length, shuffledValue: question[key] });
         }
     }
-
+    
+    // Shuffle the array using the Fisher-Yates algorithm
+    for (var i = options.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        // Swap elements
+        [options[i], options[j]] = [options[j], options[i]];
+    }
+    
+    var answersDiv = document.getElementById('answers');
+    
     options.forEach((option, index) => {
         var optionButton = document.createElement('button');
-        optionButton.textContent = option;
+        optionButton.textContent = option.shuffledValue;
         optionButton.classList.add('optionsBtn');
+
+        optionButton.setAttribute('data-v', index + option.originalValue);
+
         optionButton.addEventListener('click', function() {
-            if(document.getElementsByClassName('selected')[0]){
+            if (document.getElementsByClassName('selected')[0]) {
                 document.getElementsByClassName('selected')[0].classList.remove('selected');
             }
-            if(document.getElementsByClassName('correct')[0]){
+            if (document.getElementsByClassName('correct')[0]) {
                 document.getElementsByClassName('correct')[0].classList.remove('correct');
             }
-            if(document.getElementsByClassName('wrong')[0]){
+            if (document.getElementsByClassName('wrong')[0]) {
                 document.getElementsByClassName('wrong')[0].classList.remove('wrong');
             }
-            
+    
             this.classList.add('selected');
+            // Add logic to check if the selected option is correct or wrong
+            // You can compare this.textContent with the correct answer, for example
         });
         answersDiv.appendChild(optionButton);
     });
+    
 
     currentQuestion = question;
 
@@ -78,7 +99,8 @@ function checkAnswer() {
     }
 
     if(index !== -1){
-        if(currentQuestion.correctAnswer == (index + 1)){
+        var og = answerButtonsSelected.getAttribute('data-v') - index;
+        if(currentQuestion.correctAnswer == (og + 1)){
             answerButtonsSelected.classList.add('correct');
         }else{
             answerButtonsSelected.classList.add('wrong');
@@ -87,9 +109,14 @@ function checkAnswer() {
 }
 
 function nextQuestion() {
-    currentQuestionIndex++;
-    
-    if (currentQuestionIndex < moduleQuestions.length) {
+    if (currentQuestionIndexList.length < moduleQuestions.length) {
+        var randomQuestionNumber = Math.floor(Math.random() * moduleQuestions.length);
+        if(currentQuestionIndexList.includes(randomQuestionNumber)){
+            return nextQuestion();
+        }
+        currentQuestionIndexList.push(randomQuestionNumber);
+        currentQuestionIndex = randomQuestionNumber;
+
         displayQuestion(moduleQuestions[currentQuestionIndex]);
     } else {
         loadHomeScreen();
@@ -97,6 +124,7 @@ function nextQuestion() {
 }
 
 function loadHomeScreen() {
+    currentQuestionIndexList = [];
     currentModule = "";
     currentQuestionIndex = 0;
 
